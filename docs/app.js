@@ -310,6 +310,4 @@ document.getElementById("export-text").addEventListener("click", async () => {
   }
 });
 
-for (let i = 0; i < 12; i += 1) {
-  addRow();
-}
+addRow();
