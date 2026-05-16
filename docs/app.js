@@ -1,15 +1,4 @@
-const SAMPLE_TEXT = `Andrea 91 A
-Spagnulo 88 P
-Rocco Giudice 81 D
-Kappa 79 D
-Gigio 76 C
-C.Zubba 74 C
-Centolanze 71 A
-Fiorito 70 P
-C.Chiechi 68 D
-Fabio Pacciu 66 C
-Giancarlo Negro 62 A
-Marco Poso 59 D`;
+const SAMPLE_TEXT = ``;
 
 const ROLE_CODES = ["P", "D", "C", "A"];
 
@@ -321,4 +310,6 @@ document.getElementById("export-text").addEventListener("click", async () => {
   }
 });
 
-parseTextPlayers(SAMPLE_TEXT).forEach((player) => addRow(player.name, String(player.rating), player.role));
+for (let i = 0; i < 12; i += 1) {
+  addRow();
+}
