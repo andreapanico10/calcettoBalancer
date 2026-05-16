@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calcetto Balancer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container-fluid px-3 px-xl-4 py-3">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-lg-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="brand-ball">⚽</div>
+            <div>
+              <div class="brand-title">CALCETTO.<span class="accent">BALANCER</span></div>
+              <div class="brand-subtitle">Crea le squadre piu equilibrate</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-center">
+          <div class="header-pill">Bilancia i valori, moltiplica il <span class="accent">divertimento.</span></div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="header-box justify-content-lg-end">
+            <div class="header-icon">🏆</div>
+            <div>
+              <div class="fw-semibold">Squadre bilanciate</div>
+              <div class="header-note">Partite piu equilibrate e divertenti!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <div class="board">
+      <section class="stage stage-dark stage-edit">
+        <div class="d-flex align-items-center gap-3 mb-2">
+          <div class="step-badge">1.</div>
+          <h2 class="stage-title">Giocatori</h2>
+        </div>
+
+        <div class="editor-stack">
+          <div>
+            <div class="editor-topbar">
+              <div class="editor-label">Input rapido</div>
+              <div class="editor-meta" id="players-count">0 inseriti</div>
+            </div>
+            <textarea id="players-text" class="import-box"></textarea>
+            <div class="d-flex justify-content-end mt-2">
+              <button type="button" class="secondary-action" id="import-text">Importa nel form</button>
+            </div>
+          </div>
+
+          <div class="players-head">
+            <div></div>
+            <div>Nome</div>
+            <div>Valore</div>
+            <div>Ruolo</div>
+          </div>
+
+          <div class="players-grid" id="players-body"></div>
+
+          <div class="player-edit-footer">
+            <button type="button" class="subtle-button" id="add-row">Aggiungi giocatore</button>
+            <button type="button" class="subtle-button" id="clear-empty">Pulisci righe vuote</button>
+          </div>
+
+          <div class="switch-wrap">
+            <div class="form-check form-switch mb-0">
+              <input class="form-check-input" type="checkbox" id="use-random">
+              <label class="form-check-label" for="use-random">Abilita randomicita controllata</label>
+            </div>
+          </div>
+
+          <div>
+            <button type="button" class="big-action" id="calculate">Calcola squadre</button>
+          </div>
+        </div>
+
+        <div class="error-box d-none" id="error-box"></div>
+      </section>
+
+      <section class="stage stage-dark stage-result p-0 overflow-hidden">
+        <div class="p-4">
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <div class="step-badge blue">2.</div>
+            <h2 class="stage-title">Squadre bilanciate</h2>
+          </div>
+
+          <div id="result-placeholder" class="empty-panel">
+            <div>
+              <div class="fw-bold mb-2">Nessuna squadra generata</div>
+              <div>Inserisci o modifica i giocatori, poi premi <strong>Calcola squadre</strong>.</div>
+            </div>
+          </div>
+
+          <div id="result-content" class="d-none">
+            <div class="score-banner">
+              <div class="score-columns">
+                <div>
+                  <div class="score-label">Totale squadra A</div>
+                  <div class="score-value green" id="team-a-total">0</div>
+                </div>
+                <div>
+                  <div class="score-label">Differenza</div>
+                  <div class="score-value white" id="score-diff">0</div>
+                  <div class="score-caption" id="score-caption">Perfetto!</div>
+                </div>
+                <div>
+                  <div class="score-label">Totale squadra B</div>
+                  <div class="score-value blue" id="team-b-total">0</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="teams-panels">
+              <div class="team-panel team-a">
+                <div class="team-panel-header">
+                  <div class="team-name green">Squadra A</div>
+                  <div class="small text-secondary" id="team-a-roles">P=0 D=0 C=0 A=0</div>
+                </div>
+                <div class="team-list" id="team-a-list"></div>
+                <div class="team-total-bar green">
+                  <span>Totale</span>
+                  <span id="team-a-total-bar">0</span>
+                </div>
+              </div>
+
+              <div class="team-panel team-b">
+                <div class="team-panel-header">
+                  <div class="team-name blue">Squadra B</div>
+                  <div class="small text-secondary" id="team-b-roles">P=0 D=0 C=0 A=0</div>
+                </div>
+                <div class="team-list" id="team-b-list"></div>
+                <div class="team-total-bar blue">
+                  <span>Totale</span>
+                  <span id="team-b-total-bar">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-actions">
+          <div class="footer-buttons">
+            <button type="button" class="ghost-dark" id="recalculate">Ricalcola</button>
+            <button type="button" class="ghost-dark" id="export-text">Esporta</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
